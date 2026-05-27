@@ -1,6 +1,6 @@
-# Pagination Pattern — Sample
+# Pagination — Sample
 
-A minimal demonstration of pagination abstraction in Java + Spring Boot.
+A minimal demonstration of offset-based pagination in Java.
 
 ## What It Demonstrates
 
