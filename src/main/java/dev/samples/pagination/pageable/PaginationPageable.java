@@ -4,6 +4,7 @@ import java.util.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+// -------------------- DOMAIN --------------------
 record Customer(long id, String name) {}
 
 record Page<T>(List<T> content, int page, int size, long total) {} // обертка
