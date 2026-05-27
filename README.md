@@ -10,7 +10,7 @@ The project illustrates this with a concrete example: a `CustomerRepository` tha
 
 ## Structure
 
-The entire project intentionally fits in a single file — so the pattern is visible in full, without unnecessary noise:
+The entire project intentionally fits in a single file — so the mechanics are visible in full, without unnecessary noise:
 
 ```
 PaginationPageable.java
@@ -20,7 +20,7 @@ PaginationPageable.java
 ├── Pageable                # Pagination request — page number and size
 ├── CustomerRepository      # Data access — returns Page<Customer> for a given Pageable
 ├── FakeCustomerTable       # In-memory data source — simulates a database table
-└── PaginationPageable      # Spring Boot entry point + demo()
+└── PaginationPageable      # Entry point + demo()
 ```
 
 ## Key Points
@@ -30,12 +30,6 @@ PaginationPageable.java
 `Page<T>` wraps the result — carries the content slice alongside pagination metadata. The caller always knows the total number of records and can compute total pages.
 
 `CustomerRepository` applies the pagination parameters to the in-memory dataset — simulating what a real database query with `LIMIT` and `OFFSET` would do.
-
-## Running
-
-```
-./mvnw spring-boot:run
-```
 
 ## Console Output
 
