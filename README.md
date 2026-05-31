@@ -1,42 +1,50 @@
-# Pagination — Sample
+# pagination-pageable-sample
 
 A minimal demonstration of offset-based pagination in Java.
 
 ## What It Demonstrates
 
-Pagination is a mechanism for splitting a large dataset into fixed-size chunks. Instead of returning all records at once, the repository returns a single page — a slice of the full result with metadata: current page number, page size, and total record count.
-
-The project illustrates this with a concrete example: a `CustomerRepository` that accepts a `Pageable` request and returns a `Page<Customer>` — only the requested slice of data.
+Pagination splits a large dataset into fixed-size chunks. Instead of returning all records at once, the repository returns a single page — a slice of the full result with metadata: current page number, page size, and total record count.
 
 ## Structure
 
-The entire project intentionally fits in a single file — so the mechanics are visible in full, without unnecessary noise:
+All code is in a single file: `PaginationPageableApplication.java`
 
 ```
-PaginationPageable.java
+PaginationPageableApplication.java
 │
-├── Customer                # Model — record with id and name
+├── Owner                   # Entity — record with id and name
 ├── Page<T>                 # Pagination result — content + metadata (page, size, total)
 ├── Pageable                # Pagination request — page number and size
-├── CustomerRepository      # Data access — returns Page<Customer> for a given Pageable
-├── FakeCustomerTable       # In-memory data source — simulates a database table
-└── PaginationPageable      # Entry point + demo()
+├── FakeOwnerRepository     # In-memory implementation — applies LIMIT and OFFSET logic
+└── PaginationPageableApplication  # Entry point + demo()
 ```
 
 ## Key Points
 
-`Pageable` describes the request — which page and how many records per page. `offset()` computes the starting position in the dataset.
+**Pageable describes the request.** Page number and size are the only inputs — the repository computes the offset internally.
 
-`Page<T>` wraps the result — carries the content slice alongside pagination metadata. The caller always knows the total number of records and can compute total pages.
+**Page wraps the result.** The caller always knows the total number of records and can compute total pages without an extra call.
 
-`CustomerRepository` applies the pagination parameters to the in-memory dataset — simulating what a real database query with `LIMIT` and `OFFSET` would do.
+**Simulates LIMIT / OFFSET.** `FakeOwnerRepository` applies the same slicing logic a real database query with `LIMIT` and `OFFSET` would do.
 
 ## Console Output
 
 ```
-Page[content=[Customer[id=1, name=Alice], Customer[id=2, name=Bob]], page=0, size=2, total=5]
-Page[content=[Customer[id=3, name=Charlie], Customer[id=4, name=Diana]], page=1, size=2, total=5]
-Page[content=[Customer[id=5, name=Eve]], page=2, size=2, total=5]
+Page[content=[Owner[id=1, name=jack1], Owner[id=2, name=jack2]], page=0, size=2, total=5]
+Page[content=[Owner[id=3, name=jack3], Owner[id=4, name=jack4]], page=1, size=2, total=5]
+Page[content=[Owner[id=5, name=jack5]], page=2, size=2, total=5]
 ```
 
 Three pages from five records. The last page contains only one record — the remainder after even division.
+
+## Run
+
+```bash
+./mvnw spring-boot:run
+```
+
+## See also
+
+- Previous: [in-memory-repository-sorting-sample](https://github.com/core-java-samples/in-memory-repository-sorting-sample)
+- Next: [pagination-dto-mapping-sample](https://github.com/core-java-samples/pagination-dto-mapping-sample)
