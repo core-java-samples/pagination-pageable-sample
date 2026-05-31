@@ -4,7 +4,9 @@ A minimal demonstration of offset-based pagination in Java.
 
 ## What It Demonstrates
 
-Pagination splits a large dataset into fixed-size chunks. Instead of returning all records at once, the repository returns a single page — a slice of the full result with metadata: current page number, page size, and total record count.
+Pagination splits a large dataset into fixed-size chunks. 
+
+Instead of returning all records at once, the repository returns a single page — a slice of the full result with metadata: current page number, page size, and total record count.
 
 ## Structure
 
